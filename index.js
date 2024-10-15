@@ -9,31 +9,62 @@ app.get('/cars', (req, res) => {
 });
 
 app.post('/cars', (req, res) => {
-    service.createCar(req.body);
-    res.send("Hihio");
+    const car = req.body;
+    if (!service.validateCar(car)) {
+        return res.status(400).json({ message: 'Błędna struktura danych.' });
+    }
+
+    service.createCar(car)
+    res.status(201).json(car);
 });
 
-app.get('/cars/:mark', (req, res) => {
-    res.send(JSON.stringify(getAllCars()));
+app.delete('/cars/:id', (req, res) => {
+    const carId = Number(req.params.id);
+
+    if (carId < 1) {
+        return res.status(400).json({ message: 'Nieprawidlowe ID samochodu.' });
+    }
+
+    const car = service.findCarById(carId);
+
+    if (!car) {
+        return res.status(404).json({ message: 'Samochod o podanym ID nie został znaleziony.' });
+    }
+
+    service.deleteCarById(carId);
+    res.status(200).json({ message: 'Samochod o ID: ' + carId + ' zostal usuniety' });
+});
+
+app.put('/cars/:id', (req, res) => {
+    //caly zasob o podanym id nawet jesli nie sa podane parametry
+});
+
+app.patch('/cars/:id', (req, res) => {
+
+    const carId = Number(req.params.id);
+    const carToUpdate = req.body;
+    carToUpdate.id = Number(carId);
+
+    if (!service.validateCar(carToUpdate)) {
+        return res.status(400).json({ message: 'Błędna struktura danych.' });
+    }
+
+    const car = service.findCarById(carId);
+    if (!car) {
+        return res.status(404).json({ message: 'Nie ma takiego samochodu o id: ' + carId });
+    }
+
+    Object.assign(car, carToUpdate);
+    const allCars = service.getAllCars();
+    Object.assign(allCars, car);
+
+    res.json(car);
 });
 
 app.listen(8080, () => {
     console.log("Server Listening on PORT: 8080");
 });
 
-//POST
-//GET
-//PUT
-//PATCH
+
+
 //DELETE
-//app.put('/articles/:id', (req, res) => {
-//     const { id } = req.params;
-//     // code to update an article...
-//     res.json(req.body);
-//   });
-  
-//   app.delete('/articles/:id', (req, res) => {
-//     const { id } = req.params;
-//     // code to delete an article...
-//     res.json({ deleted: id });
-//   });

@@ -1,5 +1,5 @@
 import {data} from './fake-database.js';
-
+import { validate } from './validation-data.js';
 
 export function getAllCars(){
     return data;
@@ -11,10 +11,19 @@ export function getCarsByMark(){
     })
 }
 
-export function createCar(body){
-    const { name, age, email } = body;
-    console.log(name);
-    console.log(age);
-    console.log(email || "ape");
-    data.push(body);
+export function createCar(car){
+    data.push(car);
+}
+
+export function deleteCarById(id){
+    data.splice(id-1, 1);
+}
+
+
+export function findCarById(id){
+    return data.find((car)=> car.id === id);
+}
+
+export function validateCar(car){
+    return validate(car);
 }

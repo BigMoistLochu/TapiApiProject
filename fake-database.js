@@ -1,14 +1,14 @@
 export const data = [
     {
-        id: 1,  // Dodane pole id
+        id: 1, 
         mark: 'Audi',
         age: 27,
         color: 'Czarny',
         engine: {
             horsepower: 200,
             fuelType: 'Benzyna',
-            capacity: 2.0, // Pojemność silnika w litrach
-            cylinders: 4,  // Liczba cylindrów
+            capacity: 2.0,
+            cylinders: 4,
             manufacturer: {
                 name: 'Volkswagen Group',
                 country: 'Niemcy'
@@ -16,7 +16,7 @@ export const data = [
         }
     },
     {
-        id: 2,  // Dodane pole id
+        id: 2,
         mark: 'Audi',
         age: 33,
         color: 'Srebrny',
@@ -32,7 +32,7 @@ export const data = [
         }
     },
     {
-        id: 3,  // Dodane pole id
+        id: 3,
         mark: 'BMW',
         age: 15,
         color: 'Niebieski',
@@ -48,7 +48,7 @@ export const data = [
         }
     },
     {
-        id: 4,  // Dodane pole id
+        id: 4,
         mark: 'Mercedes',
         age: 20,
         color: 'Czerwony',
@@ -64,7 +64,7 @@ export const data = [
         }
     },
     {
-        id: 5,  // Dodane pole id
+        id: 5,
         mark: 'Volkswagen',
         age: 12,
         color: 'Zielony',
@@ -80,7 +80,7 @@ export const data = [
         }
     },
     {
-        id: 6,  // Dodane pole id
+        id: 6,
         mark: 'Ford',
         age: 18,
         color: 'Biały',
@@ -96,15 +96,15 @@ export const data = [
         }
     },
     {
-        id: 7,  // Dodane pole id
+        id: 7,
         mark: 'Tesla',
         age: 5,
         color: 'Czarny',
         engine: {
             horsepower: 400,
             fuelType: 'Elektryczny',
-            capacity: null,  // Samochody elektryczne nie mają klasycznej pojemności silnika
-            cylinders: null, // Brak cylindrów
+            capacity: null,
+            cylinders: null,
             manufacturer: {
                 name: 'Tesla, Inc.',
                 country: 'USA'
@@ -112,7 +112,7 @@ export const data = [
         }
     },
     {
-        id: 8,  // Dodane pole id
+        id: 8,
         mark: 'Mazda',
         age: 10,
         color: 'Czerwony',
@@ -128,7 +128,7 @@ export const data = [
         }
     },
     {
-        id: 9,  // Dodane pole id
+        id: 9,
         mark: 'Opel',
         age: 8,
         color: 'Srebrny',
@@ -144,7 +144,7 @@ export const data = [
         }
     },
     {
-        id: 10, // Dodane pole id
+        id: 10,
         mark: 'Peugeot',
         age: 25,
         color: 'Zielony',
