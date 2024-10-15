@@ -5,12 +5,6 @@ export function getAllCars(){
     return data;
 }
 
-export function getCarsByMark(){
-    return data.forEach((car)=>{
-        
-    })
-}
-
 export function createCar(car){
     data.push(car);
 }

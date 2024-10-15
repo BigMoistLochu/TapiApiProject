@@ -64,7 +64,3 @@ app.patch('/cars/:id', (req, res) => {
 app.listen(8080, () => {
     console.log("Server Listening on PORT: 8080");
 });
-
-
-
-//DELETE
