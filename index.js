@@ -35,8 +35,28 @@ app.delete('/cars/:id', (req, res) => {
     res.status(200).json({ message: 'Samochod o ID: ' + carId + ' zostal usuniety' });
 });
 
+//tested
 app.put('/cars/:id', (req, res) => {
-    //caly zasob o podanym id nawet jesli nie sa podane parametry
+    const carId = Number(req.params.id); 
+    const newCar = req.body;  
+    newCar.id = carId;  
+
+    if (!service.validateCar(newCar)) {
+        return res.status(400).json({ message: 'Błędna struktura danych.' });
+    }
+
+    
+    const existingCar = service.findCarById(carId);
+    if (!existingCar) {
+        return res.status(404).json({ message: 'Nie ma takiego samochodu o id: ' + carId });
+    }
+
+    const allCars = service.getAllCars();
+    const updatedCars = allCars.map(car => car.id === carId ? newCar : car);
+
+    service.saveAllCars(updatedCars);
+
+    res.json(newCar);  
 });
 
 app.patch('/cars/:id', (req, res) => {
