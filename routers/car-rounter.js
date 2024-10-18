@@ -4,7 +4,8 @@ import * as carService from '../services/car-service.js';
 export const carRouter = express.Router();
 
 carRouter.get('/', (req, res) => {
-    res.send(JSON.stringify(carService.getAllCars()));
+    const cars = carService.getAllCars();
+    res.status(200).json(cars);
 });
 
 carRouter.post('/', (req, res) => {
