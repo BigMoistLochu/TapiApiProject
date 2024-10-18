@@ -1,5 +1,5 @@
-import {data} from './fake-database.js';
-import { validate } from './validation-data.js';
+import {data} from '../fake-database.js';
+import { validate } from '../validation-data.js';
 
 export function getAllCars(){
     return data;
