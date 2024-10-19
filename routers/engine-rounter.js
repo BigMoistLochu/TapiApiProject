@@ -13,14 +13,11 @@ engineRouter.get("",(req,res)=>{
 
 engineRouter.get("/:id",(req,res)=>{
     const engineId = Number(req.params.id);
+    if(engineId < 1 ) return res.status(400).json({ message: 'Nieprawidlowe ID Silnika.' });
     const engine = engineService.getEngineById(engineId);
+    if(!engine) return res.status(404).json({ message: 'Silnik o podanym ID nie został znaleziony.' });
     res.status(200).json(engine);
 });
 
-//DODAC QUERY PARAMSY DO GET, 2 GETY ALL I ID
-//5 PODSTAWOWYCH METOD
-// const carId = Number(req.params.id);
-//     if(carId < 1 ) return res.status(400).json({ message: 'Nieprawidlowe ID samochodu.' });
-//     const car = carService.findCarById(carId);
-//     if(!car) return res.status(404).json({ message: 'Samochod o podanym ID nie został znaleziony.' });
-//     res.status(200).json(car);
+
+
