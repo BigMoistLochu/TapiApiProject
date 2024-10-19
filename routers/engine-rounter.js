@@ -1,12 +1,10 @@
 import express from "express";
 import * as engineService from "../services/engine-service.js";
 
-
-
 export const engineRouter = express.Router();
 
 
-engineRouter.get("",(req,res)=>{
+engineRouter.get("/",(req,res)=>{
     const engines = engineService.getAllEngines();
     res.status(200).json(engines);
 });

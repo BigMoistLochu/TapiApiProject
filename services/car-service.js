@@ -1,23 +1,23 @@
-import {data} from '../fake-database.js';
-import { validate } from '../validation-data.js';
+import { cars } from '../fakeDataBase/cars-data.js'
+import { validateCarDataByCar } from './validationData/validation-data.js';
 
 export function getAllCars(){
-    return data;
+    return cars;
 }
 
 export function createCar(car){
-    data.push(car);
+    cars.push(car);
 }
 
 export function deleteCarById(id){
-    data.splice(id-1, 1);
+    cars.splice(id-1, 1);
 }
 
 
 export function findCarById(id){
-    return data.find((car)=> car.id === id);
+    return cars.find((car)=> car.id === id);
 }
 
 export function validateCar(car){
-    return validate(car);
+    return validateCarDataByCar(car);
 }

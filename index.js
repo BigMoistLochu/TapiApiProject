@@ -11,13 +11,14 @@ const limiter = rateLimit({
 });
 
 const app = express();
+
+//Konfiguracja Servera
 app.use(express.json());
 app.use(limiter)
 
 //Routers
-app.use('/engines', engineRouter);
-app.use('/cars', carRouter);
-
+app.use('/api/cars', carRouter);
+app.use('/api/engines', engineRouter);
 app.listen(8080, () => {
     console.log("Server Listening on PORT: 8080");
 });
@@ -33,4 +34,4 @@ app.listen(8080, () => {
 // Poprawne użycie nagłówków HTTP
 // HATEOS
 // Konfiguracja serwera
-// Poprawność RESTa
+

@@ -1,10 +1,11 @@
-import { data } from "../fake-database.js";
+import { engines } from '../fakeDataBase/engine-data.js';
+
+
 
 export function getAllEngines(){
-    return data.map(car => car.engine);
+    return engines;
 }
 
-
 export function getEngineById(id){
-    return data.map(car => car.engine).find((engine)=> engine.id === id);
+    return engines.find((engine)=> engine.id===id);
 }

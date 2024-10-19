@@ -1,4 +1,4 @@
-export function validate(car) {
+export function validateCarDataByCar(car) {
   
     if (typeof car.id !== 'number') return false;
     if (typeof car.mark !== 'string') return false;
