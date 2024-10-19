@@ -8,6 +8,15 @@ carRouter.get('/', (req, res) => {
     res.status(200).json(cars);
 });
 
+//query paramsy opcjonalnie
+carRouter.get('/:id', (req, res) => {
+    const carId = Number(req.params.id);
+    if(carId < 1 ) return res.status(400).json({ message: 'Nieprawidlowe ID samochodu.' });
+    const car = carService.findCarById(carId);
+    if(!car) return res.status(404).json({ message: 'Samochod o podanym ID nie został znaleziony.' });
+    res.status(200).json(car);
+});
+
 carRouter.post('/', (req, res) => {
     const car = req.body;
 
@@ -36,7 +45,7 @@ carRouter.delete('/:id', (req, res) => {
     res.status(200).json({ message: 'Samochod o ID: ' + carId + ' zostal usuniety' });
 });
 
-//tested
+//not-tested
 carRouter.put('/:id', (req, res) => {
     const carId = Number(req.params.id); 
     const newCar = req.body;  
