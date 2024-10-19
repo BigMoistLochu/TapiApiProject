@@ -1,5 +1,7 @@
 import { cars } from '../fakeDataBase/cars-data.js'
 import { validateCarDataByCar } from './validationData/validation-data.js';
+import { getEngineById } from './engine-service.js';
+import { getManufacturerById } from './manufacturer-service.js';
 
 export function getAllCars(){
     return cars;
@@ -14,10 +16,22 @@ export function deleteCarById(id){
 }
 
 
-export function findCarById(id){
+export function getCarById(id){
     return cars.find((car)=> car.id === id);
 }
 
+/**
+ * Sprawdza czy obiekt ktory przyszedl od klienta ma wszystkie typy,pola oraz czy id silnika i producenta istnieja
+* @returns {boolean} - Return true jesli wszystko ok, w innym wypadku false
+ */
 export function validateCar(car){
-    return validateCarDataByCar(car);
+    if(!validateCarDataByCar(car)) return false;
+
+    const engine = getEngineById(car.engine.id);
+    if(!engine) return false;
+
+    const manufacturer = getManufacturerById(engine.manufacturer.id);
+    if(!manufacturer) return false;
+
+    return true;
 }

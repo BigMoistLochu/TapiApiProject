@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: Car API
+  description: API for managing cars and engines
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+paths:
+  /api/cars:
+    get:
+      summary: Get all cars
+      description: Returns a list of all cars
+      responses:
+        '200':
+          description: A list of cars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+components:
+  schemas:
+    Car:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        mark:
+          type: string
+          example: Audi
+        age:
+          type: integer
+          example: 27
+        color:
+          type: string
+          example: Czarny
+        engine:
+          $ref: '#/components/schemas/Engine'
+    Engine:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        horsepower:
+          type: integer
+          example: 200
+        fuelType:
+          type: string
+          example: Benzyna
+        capacity:
+          type: number
+          format: float
+          example: 2.0
+        cylinders:
+          type: integer
+          example: 4
+        manufacturer:
+          $ref: '#/components/schemas/Manufacturer'
+    Manufacturer:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Volkswagen Group
+        country:
+          type: string
+          example: Niemcy

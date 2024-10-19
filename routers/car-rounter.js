@@ -11,9 +11,12 @@ carRouter.get('/', (req, res) => {
 //query paramsy opcjonalnie
 carRouter.get('/:id', (req, res) => {
     const carId = Number(req.params.id);
+
     if(carId < 1 ) return res.status(400).json({ message: 'Nieprawidlowe ID samochodu.' });
+
     const car = carService.findCarById(carId);
     if(!car) return res.status(404).json({ message: 'Samochod o podanym ID nie został znaleziony.' });
+
     res.status(200).json(car);
 });
 
@@ -24,7 +27,12 @@ carRouter.post('/', (req, res) => {
         return res.status(400).json({ message: 'Błędna struktura danych.' });
     }
 
-    carService.createCar(car)
+    const carToCreate = carService.getCarById(car.id);
+    if (carToCreate) {
+        return res.status(400).json({ message: 'Samochod z takim id juz istnieje' });
+    }
+
+    carService.createCar(car);
     res.status(201).json(car);
 });
 
@@ -35,7 +43,7 @@ carRouter.delete('/:id', (req, res) => {
         return res.status(400).json({ message: 'Nieprawidlowe ID samochodu.' });
     }
 
-    const car = carService.findCarById(carId);
+    const car = carService.getCarById(carId);
 
     if (!car) {
         return res.status(404).json({ message: 'Samochod o podanym ID nie został znaleziony.' });
@@ -56,7 +64,7 @@ carRouter.put('/:id', (req, res) => {
     }
 
     
-    const existingCar = carService.findCarById(carId);
+    const existingCar = carService.getCarById(carId);
     if (!existingCar) {
         return res.status(404).json({ message: 'Nie ma takiego samochodu o id: ' + carId });
     }
@@ -79,7 +87,7 @@ carRouter.patch('/:id', (req, res) => {
         return res.status(400).json({ message: 'Błędna struktura danych.' });
     }
 
-    const car = carService.findCarById(carId);
+    const car = carService.getCarById(carId);
     if (!car) {
         return res.status(404).json({ message: 'Nie ma takiego samochodu o id: ' + carId });
     }

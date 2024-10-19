@@ -1,5 +1,6 @@
 import express from 'express';
-import { rateLimit } from 'express-rate-limit'
+import cors from 'cors';
+import { rateLimit } from 'express-rate-limit';
 import { engineRouter } from './routers/engine-rounter.js';
 import { carRouter } from './routers/car-rounter.js';
 
@@ -10,11 +11,13 @@ const limiter = rateLimit({
     headers: true // dodaj naglowki: X-RateLimit-Limit i X-RateLimit-Remaining
 });
 
+
 const app = express();
 
 //Konfiguracja Servera
 app.use(express.json());
 app.use(limiter)
+app.use(cors());
 
 //Routers
 app.use('/api/cars', carRouter);
