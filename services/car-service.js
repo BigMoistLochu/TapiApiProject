@@ -1,5 +1,5 @@
 import { cars } from '../fakeDataBase/cars-data.js'
-import { validateCarDataByCar } from './validationData/validation-data.js';
+import { validateCarDataByCar} from './validationData/validation-data.js';
 import { getEngineById } from './engine-service.js';
 import { getManufacturerById } from './manufacturer-service.js';
 
@@ -8,6 +8,7 @@ export function getAllCars(){
 }
 
 export function createCar(car){
+    car.id = cars.length+1;
     cars.push(car);
 }
 
@@ -35,3 +36,8 @@ export function validateCar(car){
 
     return true;
 }
+
+export function getEngineByEngineId(id){
+    return getEngineById(id);
+}
+
