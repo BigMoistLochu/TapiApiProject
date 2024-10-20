@@ -20,6 +20,169 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Car'
+    post:
+      summary: Create a new car
+      description: Adds a new car to the system
+      requestBody:
+        description: Car object that needs to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '201':
+          description: Car created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '400':
+          description: Invalid data structure or car with the given ID already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Błędna struktura danych.'
+        '409':
+          description: Car with the given ID already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Samochód z takim id już istnieje'
+  /api/cars/{id}:
+    patch:
+      summary: Update an existing car
+      description: Updates the car's details, including engine, if provided
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the car to update
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Car object with updated details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '200':
+          description: Car updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '400':
+          description: Invalid data structure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Błędna struktura danych.'
+        '404':
+          description: Car or engine not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Nie znaleziono auta lub silnika o podanym id'
+    delete:
+      summary: Delete a car by ID
+      description: Deletes a car from the system based on its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the car to delete
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Car deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Samochod o ID: 1 zostal usuniety'
+        '400':
+          description: Invalid car ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Nieprawidlowe ID samochodu.'
+        '404':
+          description: Car not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Samochod o podanym ID nie został znaleziony.'
+    get:
+      summary: Get a car by ID
+      description: Retrieves a specific car from the system based on its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the car to retrieve
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Car retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '400':
+          description: Invalid car ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Nieprawidlowe ID samochodu.'
+        '404':
+          description: Car not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Samochod o podanym ID nie został znaleziony.'                
 components:
   schemas:
     Car:

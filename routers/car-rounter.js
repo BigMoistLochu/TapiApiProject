@@ -29,7 +29,7 @@ carRouter.post('/', (req, res) => {
 
     const carToCreate = carService.getCarById(car.id);
     if (carToCreate) {
-        return res.status(400).json({ message: 'Samochod z takim id juz istnieje' });
+        return res.status(409).json({ message: 'Samochod z takim id juz istnieje' });
     }
 
     carService.createCar(car);
