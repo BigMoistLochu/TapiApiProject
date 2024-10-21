@@ -25,7 +25,7 @@ export function getCarById(id){
  * Sprawdza czy obiekt ktory przyszedl od klienta ma wszystkie typy,pola oraz czy id silnika i producenta istnieja
 * @returns {boolean} - Return true jesli wszystko ok, w innym wypadku false
  */
-export function validateCar(car){
+export function isCarDataValid(car){
     if(!validateCarDataByCar(car)) return false;
 
     const engine = getEngineById(car.engine.id);

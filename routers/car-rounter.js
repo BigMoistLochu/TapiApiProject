@@ -23,7 +23,7 @@ carRouter.get('/:id', (req, res) => {
 carRouter.post('/', (req, res) => {
     const car = req.body;
 
-    if (!carService.validateCar(car)) {
+    if (!carService.isCarDataValid(car)) {
         return res.status(400).json({ message: 'Błędna struktura danych.' });
     }
 
@@ -58,9 +58,8 @@ carRouter.put('/:id', (req, res) => {
     const carId = Number(req.params.id); 
     const newCar = req.body;  
     newCar.id = carId;  
-    //Podobnie jak Post wymaga, by w ciele żądania znajdował się komplet danych umożliwiających utworzenie całego obiektu po stronie serwera.
-    //W odpowiedzi serwer powinien wysłać odpowiedź CREATED lub w przypadku aktualizacji, NO_CONTENT.
-    if (!carService.validateCar(newCar)) {
+    
+    if (!carService.isCarDataValid(newCar)) {
         return res.status(400).json({ message: 'Błędna struktura danych.' });
     }
 
@@ -87,7 +86,7 @@ carRouter.patch('/:id', (req, res) => {
         return res.status(404).json({ message: 'Nie ma takiego samochodu o id: ' + carId });
     }
 
-    //prepare fields car to update
+    
     const carToUpdate = req.body;
     carToUpdate.id = carId;
 
@@ -102,7 +101,7 @@ carRouter.patch('/:id', (req, res) => {
     }
 
 
-    if (!carService.validateCar(carToUpdate)) {
+    if (!carService.isCarDataValid(carToUpdate)) {
         return res.status(400).json({ message: 'Błędna struktura danych.' });
     }
 
