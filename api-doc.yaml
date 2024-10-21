@@ -6,9 +6,16 @@ info:
 servers:
   - url: http://localhost:8080
     description: Local server
+tags:
+  - name: cars
+    description: Operations related to cars
+  - name: engines
+    description: Operations related to engines
 paths:
   /api/cars:
     get:
+      tags:
+        - cars
       summary: Get all cars
       description: Returns a list of all cars
       responses:
@@ -21,6 +28,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Car'
     post:
+      tags:
+        - cars
       summary: Create a new car
       description: Adds a new car to the system
       requestBody:
@@ -59,6 +68,8 @@ paths:
                     example: 'Samochód z takim id już istnieje'
   /api/cars/{id}:
     patch:
+      tags:
+        - cars
       summary: Update an existing car
       description: Updates the car's details, including engine, if provided
       parameters:
@@ -104,6 +115,8 @@ paths:
                     type: string
                     example: 'Nie znaleziono auta lub silnika o podanym id'
     delete:
+      tags:
+        - cars
       summary: Delete a car by ID
       description: Deletes a car from the system based on its ID
       parameters:
@@ -146,6 +159,8 @@ paths:
                     type: string
                     example: 'Samochod o podanym ID nie został znaleziony.'
     get:
+      tags:
+        - cars
       summary: Get a car by ID
       description: Retrieves a specific car from the system based on its ID
       parameters:
@@ -183,6 +198,342 @@ paths:
                   message:
                     type: string
                     example: 'Samochod o podanym ID nie został znaleziony.'                
+  /api/engines:
+    get:
+      tags:
+        - engines
+      summary: Get all engines
+      description: Returns a list of all engines
+      responses:
+        '200':
+          description: A list of engines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Engine'
+    post:
+      tags:
+        - engines
+      summary: Create a new engine
+      description: Adds a new engine to the system
+      requestBody:
+        description: Engine object that needs to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Engine'
+      responses:
+        '201':
+          description: Engine created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Engine'
+        '400':
+          description: Invalid data structure or engine with the given ID already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Błędna struktura danych.'
+        '409':
+          description: Engine with the given ID already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Silnik z takim id już istnieje'
+
+  /api/engines/{id}:
+    get:
+      tags:
+        - engines
+      summary: Get an engine by ID
+      description: Retrieves a specific engine from the system based on its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the engine to retrieve
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Engine retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Engine'
+        '404':
+          description: Engine not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Silnik o podanym ID nie został znaleziony.'
+    patch:
+      tags:
+        - engines
+      summary: Update an existing engine
+      description: Updates the engine's details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the engine to update
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Engine object with updated details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Engine'
+      responses:
+        '200':
+          description: Engine updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Engine'
+        '400':
+          description: Invalid data structure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Błędna struktura danych.'
+        '404':
+          description: Engine not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Silnik o podanym ID nie został znaleziony.'
+    delete:
+      tags:
+        - engines
+      summary: Delete an engine by ID
+      description: Deletes an engine from the system based on its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the engine to delete
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Engine deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Silnik o ID: 1 został usunięty.'
+        '404':
+          description: Engine not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Silnik o podanym ID nie został znaleziony.'
+  /api/manufacturers:
+    get:
+      tags:
+        - manufacturers
+      summary: Get all manufacturers
+      description: Returns a list of all manufacturers
+      responses:
+        '200':
+          description: A list of manufacturers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Manufacturer'
+    post:
+      tags:
+        - manufacturers
+      summary: Create a new manufacturer
+      description: Adds a new manufacturer to the system
+      requestBody:
+        description: Manufacturer object that needs to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Manufacturer'
+      responses:
+        '201':
+          description: Manufacturer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manufacturer'
+        '400':
+          description: Invalid data structure or manufacturer with the given ID already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Błędna struktura danych.'
+        '409':
+          description: Manufacturer with the given ID already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Producent z takim ID już istnieje'
+
+  /api/manufacturers/{id}:
+    get:
+      tags:
+        - manufacturers
+      summary: Get a manufacturer by ID
+      description: Retrieves a specific manufacturer from the system based on its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the manufacturer to retrieve
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Manufacturer retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manufacturer'
+        '404':
+          description: Manufacturer not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Producent o podanym ID nie został znaleziony.'
+    
+    patch:
+      tags:
+        - manufacturers
+      summary: Update an existing manufacturer
+      description: Updates the manufacturer's details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the manufacturer to update
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Manufacturer object with updated details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Manufacturer'
+      responses:
+        '200':
+          description: Manufacturer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manufacturer'
+        '400':
+          description: Invalid data structure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Błędna struktura danych.'
+        '404':
+          description: Manufacturer not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Producent o podanym ID nie został znaleziony.'
+
+    delete:
+      tags:
+        - manufacturers
+      summary: Delete a manufacturer by ID
+      description: Deletes a manufacturer from the system based on its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the manufacturer to delete
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Manufacturer deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Producent o ID: 1 został usunięty.'
+        '404':
+          description: Manufacturer not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Producent o podanym ID nie został znaleziony.'
 components:
   schemas:
     Car:
