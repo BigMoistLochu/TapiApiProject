@@ -1,5 +1,5 @@
 import { engines } from '../fakeDataBase/engine-data.js';
-import { validateEngineDataByEngine } from './validationData/validation-data.js';
+import { validateEngine } from './validationData/validation-data.js';
 import { getManufacturerById } from './manufacturer-service.js';
 
 
@@ -25,10 +25,5 @@ export function deleteEngineById(id){
 * @returns {boolean} - Return true jesli wszystko ok, w innym wypadku false
  */
 export function isEngineDataValid(engine){
-    if(!validateEngineDataByEngine(engine)) return false;
-
-    const manufacturer = getManufacturerById(engine.manufacturer.id);
-    if(!manufacturer) return false;
-
-    return true;
+    return validateEngine(engine)
 }

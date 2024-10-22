@@ -1,7 +1,6 @@
 import { cars } from '../fakeDataBase/cars-data.js'
-import { validateCarDataByCar} from './validationData/validation-data.js';
+import { validateCar} from './validationData/validation-data.js';
 import { getEngineById } from './engine-service.js';
-import { getManufacturerById } from './manufacturer-service.js';
 
 export function getAllCars(){
     return cars;
@@ -26,15 +25,7 @@ export function getCarById(id){
 * @returns {boolean} - Return true jesli wszystko ok, w innym wypadku false
  */
 export function isCarDataValid(car){
-    if(!validateCarDataByCar(car)) return false;
-
-    const engine = getEngineById(car.engine.id);
-    if(!engine) return false;
-
-    const manufacturer = getManufacturerById(engine.manufacturer.id);
-    if(!manufacturer) return false;
-
-    return true;
+    return validateCar(car);
 }
 
 export function getEngineByEngineId(id){
