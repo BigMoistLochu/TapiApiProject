@@ -53,7 +53,7 @@ carRouter.delete('/:id', (req, res) => {
     res.status(200).json({ message: 'Samochod o ID: ' + carId + ' zostal usuniety' });
 });
 
-
+//done
 carRouter.put('/:id', (req, res) => {
     const carId = Number(req.params.id); 
     const newCar = req.body;  
@@ -81,33 +81,40 @@ carRouter.patch('/:id', (req, res) => {
 
     const carId = Number(req.params.id);
 
-    const car = carService.getCarById(carId);
-    if (!car) {
+    const existingCar = carService.getCarById(carId);
+    if (!existingCar) {
         return res.status(404).json({ message: 'Nie ma takiego samochodu o id: ' + carId });
     }
 
     
-    const carToUpdate = req.body;
-    carToUpdate.id = carId;
+    const newCar = req.body;
+    newCar.id = carId;
 
-    if(carToUpdate.engine !== undefined) {
+    //opcjonalnie jesli jest podany silnik trzeba sprawdzic czy istnieje i dodac go do obiektu
+    if(newCar.engine !== undefined) {
 
-        if(carToUpdate.engine.id===undefined) return res.status(404).json({ message: 'Podaj id silnika'});
+        if(newCar.engine.id===undefined) return res.status(404).json({ message: 'Podaj id silnika'});
 
-        const engine = carService.getEngineByEngineId(carToUpdate.engine.id);
-        if(!engine) return res.status(404).json({ message: 'Nie ma takiego silnika o id: ' + carToUpdate.engine.id });
+        const engine = carService.getEngineByEngineId(newCar.engine.id);
+        if(!engine) return res.status(404).json({ message: 'Nie ma takiego silnika o id: ' + newCar.engine.id });
 
-        carToUpdate.engine = engine;
+        newCar.engine = engine;
+    }else{
+        
+        const engine = carService.getEngineByEngineId(existingCar.engine.id);
+        if(!engine) return res.status(404).json({ message: 'Nie ma takiego silnika o id: ' + newCar.engine.id });
+
+        newCar.engine = engine;
     }
 
 
-    if (!carService.isCarDataValid(carToUpdate)) {
+    if (!carService.isCarDataValid(newCar)) {
         return res.status(400).json({ message: 'Błędna struktura danych.' });
     }
 
-    Object.assign(car, carToUpdate);
+    Object.assign(existingCar, newCar);
     const allCars = carService.getAllCars();
-    Object.assign(allCars, car);
+    Object.assign(allCars, existingCar);
 
-    res.status(200).json(car);
+    res.status(200).json(existingCar);
 });
