@@ -12,7 +12,8 @@ export function createCar(car){
 }
 
 export function deleteCarById(id){
-    cars.splice(id-1, 1);
+    const indexToRemove = cars.findIndex(car => car.id === id);
+    cars.splice(indexToRemove, 1);
 }
 
 

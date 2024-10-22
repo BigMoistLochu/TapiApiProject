@@ -17,7 +17,8 @@ export function createEngine(engine){
 }
 
 export function deleteEngineById(id){
-    engines.splice(id-1, 1);
+    const indexToRemove = engines.findIndex(engine => engine.id === id);
+    engines.splice(indexToRemove, 1);
 }
 
 /**
@@ -26,4 +27,8 @@ export function deleteEngineById(id){
  */
 export function isEngineDataValid(engine){
     return validateEngine(engine)
+}
+
+export function getManufacturerByManufacturerId(id){
+    return getManufacturerById(id);
 }
