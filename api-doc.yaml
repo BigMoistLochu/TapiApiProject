@@ -67,6 +67,55 @@ paths:
                     type: string
                     example: 'Samochód z takim id już istnieje'
   /api/cars/{id}:
+    put:
+      tags:
+        - cars
+      summary: Update or create a car
+      description: Updates the car details if the car exists, or creates a new car if not. Validates the data structure before proceeding.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the car to update or create
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Car object with updated details or to create if not found
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '201':
+          description: Car created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '204':
+          description: Car updated successfully (no content)
+        '400':
+          description: Invalid data structure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Błędna struktura danych.'
+        '404':
+          description: Car not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Nie znaleziono auta o podanym id'
     patch:
       tags:
         - cars
@@ -284,6 +333,55 @@ paths:
                   message:
                     type: string
                     example: 'Silnik o podanym ID nie został znaleziony.'
+    put:
+      tags:
+        - engines
+      summary: Update or create an engine
+      description: Updates the engine details if the engine exists, or creates a new engine if not. Validates the data structure before proceeding.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the engine to update or create
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Engine object with updated details or to create if not found
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Engine'
+      responses:
+        '201':
+          description: Engine created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Engine'
+        '204':
+          description: Engine updated successfully (no content)
+        '400':
+          description: Invalid data structure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Błędna struktura danych.'
+        '404':
+          description: Engine not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Nie znaleziono silnika o podanym id'
     patch:
       tags:
         - engines
@@ -451,6 +549,55 @@ paths:
                   message:
                     type: string
                     example: 'Producent o podanym ID nie został znaleziony.'
+    put:
+      tags:
+        - manufacturers
+      summary: Update or create a manufacturer
+      description: Updates the manufacturer details if the manufacturer exists, or creates a new manufacturer if not. Validates the data structure before proceeding.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the manufacturer to update or create
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Manufacturer object with updated details or to create if not found
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Manufacturer'
+      responses:
+        '201':
+          description: Manufacturer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manufacturer'
+        '204':
+          description: Manufacturer updated successfully (no content)
+        '400':
+          description: Invalid data structure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Błędna struktura danych.'
+        '404':
+          description: Manufacturer not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Nie znaleziono producenta o podanym id'                
     
     patch:
       tags:
