@@ -53,3 +53,53 @@ manufacturerRouter.delete('/:id', (req, res) => {
     manufacturerService.deleteManufacturerById(manufacturerId);
     res.status(200).json({ message: 'Silnik o ID: ' + manufacturerId + ' zostal usuniety' });
 });
+
+
+
+manufacturerRouter.put('/:id', (req, res) => {
+    const manufacturerId = Number(req.params.id); 
+    const newManufacturer = req.body;  
+    newManufacturer.id = manufacturerId;  
+    
+    if (!manufacturerService.isManufacturerDataValid(newManufacturer)) {
+        return res.status(400).json({ message: 'Błędna struktura danych.' });
+    }
+
+    const existingManufacturer = manufacturerService.getManufacturerById(manufacturerId);
+
+    if (!existingManufacturer) {
+        manufacturerService.createManufacturer(newManufacturer);
+        return res.status(201).json(newManufacturer);
+    }
+
+    Object.assign(existingManufacturer, newManufacturer);
+    const allEngines = manufacturerService.getAllManufacturers();
+    Object.assign(allEngines, existingManufacturer);
+    
+    res.status(204).send();
+});
+
+
+manufacturerRouter.patch('/:id', (req, res) => {
+
+    const manufacturerId = Number(req.params.id);
+
+    const existingManufacturer = manufacturerService.getManufacturerById(manufacturerId);
+    if (!existingManufacturer) {
+        return res.status(404).json({ message: 'Nie ma takiego Producenta o id: ' + manufacturerId });
+    }
+
+    
+    const newManufacturer = req.body;
+    newManufacturer.id = manufacturerId;
+
+    if (!manufacturerService.isManufacturerDataValid(newManufacturer)) {
+        return res.status(400).json({ message: 'Błędna struktura danych.' });
+    }
+
+    Object.assign(existingManufacturer, newManufacturer);
+    const allEngines = manufacturerService.getAllManufacturers();
+    Object.assign(allEngines, existingManufacturer);
+
+    res.status(200).json(existingManufacturer);
+});

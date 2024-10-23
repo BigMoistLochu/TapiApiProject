@@ -2,9 +2,9 @@ import Joi from 'joi';
 
 // Schemat walidacji dla producenta silnika
 const manufacturerSchema = Joi.object({
-  id: Joi.number().integer().positive().required(),
-  name: Joi.string().min(1).required(),
-  country: Joi.string().min(1).required()
+  id: Joi.number().integer().positive(),
+  name: Joi.string().min(1),
+  country: Joi.string().min(1)
 });
 
 // Schemat walidacji dla silnika

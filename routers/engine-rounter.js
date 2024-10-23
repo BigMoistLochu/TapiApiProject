@@ -72,7 +72,7 @@ engineRouter.put('/:id', (req, res) => {
     }
 
     Object.assign(existingEngine, newEngine);
-    const allEngines = engineService.getAllEngines;
+    const allEngines = engineService.getAllEngines();
     Object.assign(allEngines, existingEngine);
     
     res.status(204).send();
