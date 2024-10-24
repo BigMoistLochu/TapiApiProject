@@ -51,7 +51,7 @@ manufacturerRouter.delete('/:id', (req, res) => {
     }
 
     manufacturerService.deleteManufacturerById(manufacturerId);
-    res.status(200).json({ message: 'Silnik o ID: ' + manufacturerId + ' zostal usuniety' });
+    res.status(200).json({ message: 'Producent o ID: ' + manufacturerId + ' zostal usuniety' });
 });
 
 
