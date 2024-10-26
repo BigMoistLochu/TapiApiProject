@@ -4,6 +4,7 @@ import { rateLimit } from 'express-rate-limit';
 import { engineRouter } from './routers/engine-rounter.js';
 import { carRouter } from './routers/car-rounter.js';
 import { manufacturerRouter } from './routers/manufacturer-rounter.js';
+import { isValidContentTypeHeader, isValidAcceptHeader } from './middleware.js';
 
 
 const limiter = rateLimit({
@@ -18,6 +19,8 @@ const app = express();
 //Konfiguracja Servera
 app.use(express.json());
 app.use(limiter)
+app.use(isValidContentTypeHeader);
+app.use(isValidAcceptHeader);
 app.use(cors());
 
 //Routers
