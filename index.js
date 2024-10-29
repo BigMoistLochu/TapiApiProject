@@ -32,15 +32,3 @@ app.listen(8080, () => {
     console.log("Server Listening on PORT: 8080");
 });
 
-
-//Zadania do wykonania
-// 2 gety: id,all
-// 5 podstawowych metod: get,post,put,patch,delete
-
-// Stworzenie routów dla resourców swojego tematu (progress)
-// Poprawne użycie metod HTTP
-// Poprawnie użycie kodów HTTP
-// Poprawne użycie nagłówków HTTP
-// HATEOS
-// Konfiguracja serwera (done)
-

@@ -34,6 +34,7 @@ carRouter.post('/', (req, res) => {
 
     carService.createCar(car);
     res.status(201).json(car);
+    
 });
 
 carRouter.delete('/:id', (req, res) => {
@@ -51,6 +52,7 @@ carRouter.delete('/:id', (req, res) => {
 
     carService.deleteCarById(carId);
     res.status(200).json({ message: 'Samochod o ID: ' + carId + ' zostal usuniety' });
+    
 });
 
 //done
