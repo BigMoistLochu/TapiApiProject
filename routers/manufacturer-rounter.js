@@ -6,7 +6,10 @@ export const manufacturerRouter = express.Router();
 
 manufacturerRouter.get("/", (req, res) => {
     const manufacturers = manufacturerService.getAllManufacturers();
-    res.status(200).json(manufacturers);
+    res.status(200).json({
+        manufacturers,
+        _links: res.locals.hateoas
+    });
 });
 
 manufacturerRouter.get("/:id", (req, res) => {

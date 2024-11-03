@@ -22,7 +22,6 @@ carRouter.get('/:id', (req, res) => {
 
 carRouter.post('/', (req, res) => {
     const car = req.body;
-    
     if (!carService.isCarDataValid(car)) {
         return res.status(400).json({ message: 'Błędna struktura danych.' });
     }
@@ -34,7 +33,6 @@ carRouter.post('/', (req, res) => {
 
     carService.createCar(car);
     res.status(201).json(car);
-    
 });
 
 carRouter.delete('/:id', (req, res) => {
